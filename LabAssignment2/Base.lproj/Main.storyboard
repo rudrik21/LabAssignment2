@@ -25,15 +25,15 @@
                             </scopeButtonTitles>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="cV5-q6-3XC" customClass="TaskCell" customModule="LabAssignment2" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" rowHeight="100" id="cV5-q6-3XC" customClass="TaskCell" customModule="LabAssignment2" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="84" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cV5-q6-3XC" id="Uvr-gy-amo">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="348" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="GAM-Sz-hFg">
-                                            <rect key="frame" x="20" y="20" width="335" height="60"/>
+                                            <rect key="frame" x="20" y="20" width="308" height="60"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Q4R-GF-zzP">
                                                     <rect key="frame" x="0.0" y="0.0" width="39" height="60"/>
@@ -53,7 +53,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="eWF-VC-67Z">
-                                                    <rect key="frame" x="256" y="0.0" width="79" height="60"/>
+                                                    <rect key="frame" x="229" y="0.0" width="79" height="60"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lO-Ga-iea">
                                                             <rect key="frame" x="0.0" y="0.0" width="79" height="39.5"/>
@@ -95,6 +95,7 @@
                                     <outlet property="lblDays" destination="6Ke-a1-INQ" id="9DR-mK-ikr"/>
                                     <outlet property="lblDesc" destination="jsF-xw-XuL" id="g5J-2K-YBD"/>
                                     <outlet property="lblTitle" destination="fkR-Bv-4Bx" id="MRJ-jS-oO6"/>
+                                    <segue destination="c09-hW-Pvg" kind="show" id="DfR-RY-Can"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -104,11 +105,23 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tasks" largeTitleDisplayMode="always" id="lEv-aJ-07D">
-                        <barButtonItem key="rightBarButtonItem" image="plus.app.fill" catalog="system" id="V7m-X6-Wui">
-                            <connections>
-                                <segue destination="c09-hW-Pvg" kind="show" id="y5t-W6-qk4"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="plus.app.fill" catalog="system" id="V7m-X6-Wui">
+                                <connections>
+                                    <segue destination="c09-hW-Pvg" kind="show" id="y5t-W6-qk4"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="calendar.circle" catalog="system" id="RSi-eC-uK3">
+                                <connections>
+                                    <action selector="onSortByDate:" destination="QxD-it-Ate" id="ton-uv-2DJ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="list.dash" catalog="system" id="WYd-jf-xP1">
+                                <connections>
+                                    <action selector="onSortByTitle:" destination="QxD-it-Ate" id="FiG-5Y-7hO"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="868-m2-Brp" id="PqJ-Zc-AKD"/>
@@ -171,7 +184,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="54h-yh-qVF">
-                                                <rect key="frame" x="0.0" y="24" width="359" height="216"/>
+                                                <rect key="frame" x="0.0" y="23.5" width="359" height="216"/>
                                                 <locale key="locale" localeIdentifier="en_US"/>
                                             </datePicker>
                                         </subviews>
@@ -253,6 +266,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar.circle" catalog="system" width="64" height="60"/>
+        <image name="list.dash" catalog="system" width="64" height="42"/>
         <image name="plus.app.fill" catalog="system" width="64" height="56"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="y5t-W6-qk4"/>
+    </inferredMetricsTieBreakers>
 </document>

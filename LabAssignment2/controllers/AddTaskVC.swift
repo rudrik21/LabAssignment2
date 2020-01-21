@@ -10,6 +10,9 @@ import UIKit
 
 class AddTaskVC: UIViewController {
 
+    var tasksTVC: TasksTVC?
+    
+    
     //  MARK: outlets
     @IBOutlet weak var edtTitle: UITextField!
     @IBOutlet weak var edtDesc: UITextField!
@@ -31,13 +34,22 @@ class AddTaskVC: UIViewController {
     }
     
     override func unwind(for unwindSegue: UIStoryboardSegue, towards subsequentVC: UIViewController) {
+        if edtTitle.text!.isEmpty {
+            return
+        }
         print("onUnwind")
-        let task = Task(title: edtTitle.text, desc: edtDesc.text, dt: dateFormatter?.string(from: dtPicker.date), cDays: 0, totalDays: Int(lblDays.text ?? "1")!)
+        let task = Task(title: edtTitle.text, desc: edtDesc.text, dt: dtPicker.date, cDays: 0, totalDays: Int(lblDays.text ?? "1")!)
         
         print(task.toString())
         
         print(addNewTaskData(tasks: [task]))
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return false
+    }
+    
+    
     /*
     // MARK: - Navigation
 

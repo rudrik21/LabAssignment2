@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 class Task {
-    internal init(title: String?, desc: String?, dt: String?, cDays: Int = 0, totalDays: Int = 0) {
+    internal init(title: String?, desc: String?, dt: Date?, cDays: Int = 0, totalDays: Int = 0) {
         self.title = title
         self.dt = dt
         self.desc = desc
@@ -19,13 +19,13 @@ class Task {
     }
     
     var title: String?
-    var dt: String?
+    var dt: Date?
     var desc: String?
     var cDays: Int?
     var totalDays: Int?
     
     func toString() -> String {
-        return "Title: \(title ?? ""), Desc: \(desc ?? ""), Date: \(dt ?? ""), cDays: \(cDays ?? -1), totalDays: \(totalDays ?? -1)"
+        return "Title: \(title ?? ""), Desc: \(desc ?? ""), Date: \(dateToString((dt ?? nil)!)), cDays: \(cDays ?? -1), totalDays: \(totalDays ?? -1)"
     }
     
 }

@@ -19,6 +19,9 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
     
     var oldTasks: [Task] = []
     var tasks: [Task] = []
+    var isAsc = true
+    var selectedTask : Task?
+    var isNewTask: Bool = true
     
     //  MARK: outlets
     @IBOutlet weak var searchBar: UISearchBar!
@@ -34,41 +37,41 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        tasks = fetchTaskData()
+        tasks = fetchTaskData(isAsc: isAsc)
         tasks.forEach { (t) in
             print("fetched data: ", t.toString())
         }
-        
         searchBar.delegate = self
     }
     
+    @IBAction func onSortByTitle(_ sender: UIBarButtonItem) {
+        isAsc.toggle()
+        tasks = fetchTaskData(isDate: false, isAsc: isAsc)
+        tableView.reloadData()
+    }
+    
+    @IBAction func onSortByDate(_ sender: UIBarButtonItem) {
+        isAsc.toggle()
+        tasks = fetchTaskData(isDate: true, isAsc: isAsc)
+        tableView.reloadData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        isNewTask = true
         tasks = []
-        tasks = fetchTaskData()
+        tasks = fetchTaskData(isAsc: isAsc)
         tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         tasks = []
-        tableView.reloadData()
-        
         if !searchText.isEmpty {
-             var tempTasks = fetchTaskData()
-        
-            tempTasks.forEach { (t) in
-                if ((t.title?.contains(searchText)) != nil) || (((t.dt?.contains(searchText)) != nil)){
-                        tempTasks.append(t)
-                }
-            }
-            tasks = []
-            tasks = tempTasks
+            tasks = fetchTaskData(search: searchText, isAsc: isAsc)
             tableView.reloadData()
         }else{
-            tasks = []
-            tasks = fetchTaskData()
-            tableView.reloadData()
+            tasks = fetchTaskData(isAsc: isAsc)
         }
+        tableView.reloadData()
     }
     
     
@@ -92,6 +95,10 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
         return UITableViewCell()
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        isNewTask = false
+        selectedTask = tasks[indexPath.row]
+    }
 
     
     // Override to support conditional editing of the table view.
@@ -115,6 +122,7 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let pos = indexPath.row
+        let t = self.tasks[pos]
         
         let delete = UIContextualAction(style: .destructive, title: "Delete") { (act, v, nil) in
             act.backgroundColor = .red
@@ -131,17 +139,26 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
         let increase = UIContextualAction(style: .normal, title: "Add a day") { (act, v, nil) in
             act.backgroundColor = .green
             print("onAddDay")
-            let t = self.tasks[pos]
             t.cDays = t.cDays! + 1
-            self.tasks[pos] = t
             
-            //  update database
-            clearTaskData()
-            addNewTaskData(tasks: self.tasks)
+            if t.cDays! <= t.totalDays!{
             
+                self.tasks[pos] = t
+                
+                //  update database
+                clearTaskData()
+                addNewTaskData(tasks: self.tasks)
+            }
             tableView.reloadData()
         }
-        return UISwipeActionsConfiguration(actions: [delete, increase])
+        
+        var acts : UISwipeActionsConfiguration?
+        if t.cDays!  >= t.totalDays! {
+            acts = UISwipeActionsConfiguration(actions: [delete])
+        }else{
+            acts = UISwipeActionsConfiguration(actions: [delete, increase])
+        }
+        return acts
     }
 
     /*
@@ -159,15 +176,18 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let addTaskVC : AddTaskVC = segue.destination as! AddTaskVC{
+            if !isNewTask {
+                addTaskVC.tasksTVC = self
+            }
+        }
     }
-    */
+    
     
     @IBAction func unwindToHome(_ unwindSegue: UIStoryboardSegue) {
         let sourceViewController = unwindSegue.source

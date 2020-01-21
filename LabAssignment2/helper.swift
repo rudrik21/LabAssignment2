@@ -30,12 +30,22 @@ func addNewTaskData(tasks: [Task]) -> Bool {
     return res
 }
 
-func fetchTaskData(search: String = "") -> [Task] {
+func fetchTaskData(search: String = "", isDate: Bool = false, isAsc: Bool = true) -> [Task] {
     var tempTasks = [Task]()
     
     let req = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskData")
+    if !isDate {
+        req.sortDescriptors = [NSSortDescriptor(key: "title", ascending: isAsc)]
+    }else{
+        req.sortDescriptors = [NSSortDescriptor(key: "dt", ascending: isAsc)]
+    }
+    
     if !search.isEmpty {
-        req.predicate = NSPredicate(format: "name contains %@", "\(search)")
+        
+        let p1 = NSPredicate(format: "title contains %@", "\(search.lowercased())")
+        let p2 = NSPredicate(format: "dt contains %@", "\(search.lowercased())")
+        req.predicate = NSCompoundPredicate(type: .or, subpredicates: [p1, p2])
+        
         req.returnsObjectsAsFaults = false
     }
     
@@ -46,7 +56,7 @@ func fetchTaskData(search: String = "") -> [Task] {
                 let t = Task(
                     title: u.value(forKey: "title") as? String
                     , desc: u.value(forKey: "desc") as? String,
-                      dt: u.value(forKey: "dt") as? String,
+                      dt: u.value(forKey: "dt") as? Date,
                       cDays: u.value(forKey: "c_days") as! Int,
                       totalDays: u.value(forKey: "total_days") as! Int)
                 tempTasks.append(t)
@@ -66,3 +76,9 @@ func clearTaskData() {
     catch { print(error) }
 }
 
+func dateToString(_ dt: Date) -> String {
+    if dt != nil{
+        return dateFormatter?.string(from: dt) ?? ""
+    }
+    return ""
+}

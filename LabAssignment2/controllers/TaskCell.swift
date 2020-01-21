@@ -30,9 +30,11 @@ class TaskCell: UITableViewCell {
         lblTitle.text = task.title
         lblDesc.text = task.desc
         lblDays.text = String(count)
-        self.lblDate.text = task.dt
-        if count <= 0{
+        self.lblDate.text = dateToString(task.dt!)
+        if count == 0{
             self.backgroundColor = .brown
+        }else{
+            self.backgroundColor = .white
         }
     }
 }

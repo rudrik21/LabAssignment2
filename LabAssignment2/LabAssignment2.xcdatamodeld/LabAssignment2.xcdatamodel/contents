@@ -3,7 +3,7 @@
     <entity name="TaskData" representedClassName="TaskData" syncable="YES" codeGenerationType="class">
         <attribute name="c_days" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="desc" optional="YES" attributeType="String"/>
-        <attribute name="dt" optional="YES" attributeType="String"/>
+        <attribute name="dt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <attribute name="total_days" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
     </entity>
