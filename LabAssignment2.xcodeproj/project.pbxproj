@@ -9,23 +9,31 @@
 /* Begin PBXBuildFile section */
 		8378169423D69140000C6B03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8378169323D69140000C6B03 /* AppDelegate.swift */; };
 		8378169623D69140000C6B03 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8378169523D69140000C6B03 /* SceneDelegate.swift */; };
-		8378169823D69140000C6B03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8378169723D69140000C6B03 /* ViewController.swift */; };
 		8378169B23D69140000C6B03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8378169923D69140000C6B03 /* Main.storyboard */; };
 		8378169E23D69140000C6B03 /* LabAssignment2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8378169C23D69140000C6B03 /* LabAssignment2.xcdatamodeld */; };
 		837816A023D69143000C6B03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8378169F23D69143000C6B03 /* Assets.xcassets */; };
 		837816A323D69143000C6B03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 837816A123D69143000C6B03 /* LaunchScreen.storyboard */; };
+		837816AB23D694B9000C6B03 /* TasksTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837816AA23D694B9000C6B03 /* TasksTVC.swift */; };
+		837816AD23D6989E000C6B03 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837816AC23D6989E000C6B03 /* Task.swift */; };
+		837816B123D6A435000C6B03 /* AddTaskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837816B023D6A435000C6B03 /* AddTaskVC.swift */; };
+		837816B323D6B2BB000C6B03 /* helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837816B223D6B2BB000C6B03 /* helper.swift */; };
+		837816B523D6B998000C6B03 /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837816B423D6B998000C6B03 /* TaskCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8378169023D69140000C6B03 /* LabAssignment2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LabAssignment2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8378169323D69140000C6B03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8378169523D69140000C6B03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		8378169723D69140000C6B03 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8378169A23D69140000C6B03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8378169D23D69140000C6B03 /* LabAssignment2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LabAssignment2.xcdatamodel; sourceTree = "<group>"; };
 		8378169F23D69143000C6B03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		837816A223D69143000C6B03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		837816A423D69143000C6B03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		837816AA23D694B9000C6B03 /* TasksTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksTVC.swift; sourceTree = "<group>"; };
+		837816AC23D6989E000C6B03 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		837816B023D6A435000C6B03 /* AddTaskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskVC.swift; sourceTree = "<group>"; };
+		837816B223D6B2BB000C6B03 /* helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helper.swift; sourceTree = "<group>"; };
+		837816B423D6B998000C6B03 /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +66,36 @@
 		8378169223D69140000C6B03 /* LabAssignment2 */ = {
 			isa = PBXGroup;
 			children = (
-				8378169323D69140000C6B03 /* AppDelegate.swift */,
-				8378169523D69140000C6B03 /* SceneDelegate.swift */,
-				8378169723D69140000C6B03 /* ViewController.swift */,
 				8378169923D69140000C6B03 /* Main.storyboard */,
+				837816B223D6B2BB000C6B03 /* helper.swift */,
+				837816AF23D698C0000C6B03 /* controllers */,
+				837816AE23D698AF000C6B03 /* models */,
+				8378169323D69140000C6B03 /* AppDelegate.swift */,
 				8378169F23D69143000C6B03 /* Assets.xcassets */,
 				837816A123D69143000C6B03 /* LaunchScreen.storyboard */,
 				837816A423D69143000C6B03 /* Info.plist */,
+				8378169523D69140000C6B03 /* SceneDelegate.swift */,
 				8378169C23D69140000C6B03 /* LabAssignment2.xcdatamodeld */,
 			);
 			path = LabAssignment2;
+			sourceTree = "<group>";
+		};
+		837816AE23D698AF000C6B03 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				837816AC23D6989E000C6B03 /* Task.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		837816AF23D698C0000C6B03 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				837816AA23D694B9000C6B03 /* TasksTVC.swift */,
+				837816B023D6A435000C6B03 /* AddTaskVC.swift */,
+				837816B423D6B998000C6B03 /* TaskCell.swift */,
+			);
+			path = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,8 +169,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8378169823D69140000C6B03 /* ViewController.swift in Sources */,
+				837816AB23D694B9000C6B03 /* TasksTVC.swift in Sources */,
+				837816B123D6A435000C6B03 /* AddTaskVC.swift in Sources */,
+				837816B323D6B2BB000C6B03 /* helper.swift in Sources */,
 				8378169E23D69140000C6B03 /* LabAssignment2.xcdatamodeld in Sources */,
+				837816B523D6B998000C6B03 /* TaskCell.swift in Sources */,
+				837816AD23D6989E000C6B03 /* Task.swift in Sources */,
 				8378169423D69140000C6B03 /* AppDelegate.swift in Sources */,
 				8378169623D69140000C6B03 /* SceneDelegate.swift in Sources */,
 			);
