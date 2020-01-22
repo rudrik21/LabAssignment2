@@ -111,7 +111,7 @@
                                     <segue destination="c09-hW-Pvg" kind="show" id="y5t-W6-qk4"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="calendar.circle" catalog="system" id="RSi-eC-uK3">
+                            <barButtonItem image="calendar.circle" catalog="system" id="RSi-eC-uK3">
                                 <connections>
                                     <action selector="onSortByDate:" destination="QxD-it-Ate" id="ton-uv-2DJ"/>
                                 </connections>
@@ -192,7 +192,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3Bt-HB-svf">
                                         <rect key="frame" x="0.0" y="387" width="359" height="53.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f68-oH-GKM">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f68-oH-GKM">
                                                 <rect key="frame" x="0.0" y="0.0" width="359" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <nil key="textColor"/>
@@ -236,6 +236,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnAdd" destination="IMC-BB-Oub" id="1uC-LR-I6M"/>
                         <outlet property="dtPicker" destination="54h-yh-qVF" id="HVI-Hz-8nt"/>
                         <outlet property="edtDesc" destination="FSm-Vg-80U" id="ZJo-qt-iCl"/>
                         <outlet property="edtTitle" destination="9Ux-Uo-VLR" id="1M8-KY-AFu"/>

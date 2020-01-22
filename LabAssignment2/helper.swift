@@ -30,7 +30,7 @@ func addNewTaskData(tasks: [Task]) -> Bool {
     return res
 }
 
-func fetchTaskData(search: String = "", isDate: Bool = false, isAsc: Bool = true) -> [Task] {
+func fetchTaskData(search: String = "", isDate: Bool = false, isAsc: Bool = true, isSame: Bool = false) -> [Task] {
     var tempTasks = [Task]()
     
     let req = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskData")
@@ -41,10 +41,13 @@ func fetchTaskData(search: String = "", isDate: Bool = false, isAsc: Bool = true
     }
     
     if !search.isEmpty {
-        
-        let p1 = NSPredicate(format: "title contains %@", "\(search.lowercased())")
-        let p2 = NSPredicate(format: "dt contains %@", "\(search.lowercased())")
-        req.predicate = NSCompoundPredicate(type: .or, subpredicates: [p1, p2])
+        if !isSame{
+            let p1 = NSPredicate(format: "ANY title CONTAINS[c] %@", "\(search)")
+            let p2 = NSPredicate(format: "ANY desc CONTAINS[c] %@", "\(search)")
+            req.predicate = NSCompoundPredicate(type: .or, subpredicates: [p1, p2])
+        }else{
+            req.predicate = NSPredicate(format: "title = %@", "\(search)")
+        }
         
         req.returnsObjectsAsFaults = false
     }
@@ -67,6 +70,22 @@ func fetchTaskData(search: String = "", isDate: Bool = false, isAsc: Bool = true
     }
     
     return tempTasks
+}
+
+func deleteTaskData(tasks: [Task]) {
+    tasks.forEach { (task) in
+    
+        let req = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskData")
+        req.predicate = NSPredicate(format: "title = %@ ", task.title!)
+        
+        let delReq = NSBatchDeleteRequest(fetchRequest: req)
+        do {
+            try context!.execute(delReq)
+        }
+        catch { print(error) }
+       
+        
+    }
 }
 
 func clearTaskData() {

@@ -25,14 +25,14 @@ class TaskCell: UITableViewCell {
         // Initialization code
     }
 
-    func setTask(task: Task) {
+    func setTask(task: Task, searchText: String = "") {
         let count = (Int(task.totalDays!)) - (Int(task.cDays!))
         lblTitle.text = task.title
         lblDesc.text = task.desc
         lblDays.text = String(count)
         self.lblDate.text = dateToString(task.dt!)
         if count == 0{
-            self.backgroundColor = .brown
+            self.backgroundColor = .cyan
         }else{
             self.backgroundColor = .white
         }

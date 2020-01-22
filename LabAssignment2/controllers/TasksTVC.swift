@@ -34,35 +34,40 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
         dateFormatter = DateFormatter()
         dateFormatter!.dateFormat = "MMM dd, YYYY"
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        tasks = fetchTaskData(isAsc: isAsc)
-        tasks.forEach { (t) in
-            print("fetched data: ", t.toString())
-        }
+        let tap = UITapGestureRecognizer(target: self, action: #selector(resetFocus))
+        navigationController?.navigationBar.addGestureRecognizer(tap)
         searchBar.delegate = self
+       
     }
     
+    @objc func resetFocus() {
+           searchBar.resignFirstResponder()
+       }
+    
+    //  MARK: sort by title
     @IBAction func onSortByTitle(_ sender: UIBarButtonItem) {
         isAsc.toggle()
         tasks = fetchTaskData(isDate: false, isAsc: isAsc)
         tableView.reloadData()
     }
     
+    //  MARK: sort by date
     @IBAction func onSortByDate(_ sender: UIBarButtonItem) {
         isAsc.toggle()
         tasks = fetchTaskData(isDate: true, isAsc: isAsc)
         tableView.reloadData()
     }
     
+    //  MARK: view will appear
     override func viewWillAppear(_ animated: Bool) {
         isNewTask = true
         tasks = []
+        searchBar.text = ""
         tasks = fetchTaskData(isAsc: isAsc)
         tableView.reloadData()
     }
     
+    //  MARK: on search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         tasks = []
         if !searchText.isEmpty {
@@ -88,16 +93,11 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
 
             let position = indexPath.row
             let task = tasks[position]
-            cell.setTask(task: task)
+            cell.setTask(task: task, searchText: searchBar.searchTextField.text!)
             return cell
         }
 
         return UITableViewCell()
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        isNewTask = false
-        selectedTask = tasks[indexPath.row]
     }
 
     
@@ -130,8 +130,7 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
             self.tasks.remove(at: pos)
             
             //  update database
-            clearTaskData()
-            addNewTaskData(tasks: self.tasks)
+            deleteTaskData(tasks: [t])
             
             tableView.reloadData()
         }
@@ -146,10 +145,11 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
                 self.tasks[pos] = t
                 
                 //  update database
-                clearTaskData()
-                addNewTaskData(tasks: self.tasks)
+                deleteTaskData(tasks: [t])
+               
+                addNewTaskData(tasks: [t])
+                tableView.reloadData()
             }
-            tableView.reloadData()
         }
         
         var acts : UISwipeActionsConfiguration?
@@ -181,10 +181,15 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let addTaskVC : AddTaskVC = segue.destination as! AddTaskVC{
-            if !isNewTask {
+        print("inside prepare")
+        if let addTaskVC = segue.destination as? AddTaskVC {
+            if let cell = sender as? TaskCell{
                 addTaskVC.tasksTVC = self
+                let pos = tableView.indexPath(for: cell)?.row
+                selectedTask = tasks[pos!]
+                print("selected cell", selectedTask?.toString())
             }
+            
         }
     }
     
@@ -195,4 +200,5 @@ class TasksTVC: UITableViewController, UISearchBarDelegate {
         
     }
 
+    
 }
